@@ -144,7 +144,7 @@ test_length_match <- function() {
   df <- suppressWarnings(read_csv(filename, skip = 3, col_types = cols(.default = 'c')))
   length_match(df, filename, verbose=F)
 
-  x <- "" # suppress the return type (is there a better way to do this)
+  invisible() # suppress the return type (is there a better way to do this)
 }
 
 test_length_match()
