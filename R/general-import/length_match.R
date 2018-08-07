@@ -50,7 +50,7 @@
 library(readr)
 library(stringr)
 
-length_match <- function(df, filename, skip = 0, col_names = TRUE) {
+length_match <- function(df, filename, skip = 0, col_names = TRUE, verbose = TRUE) {
   ## skip tells the function to skip that many rows before parsing data
   ## Note that col_names = TRUE is the general pattern in tidyverse imports
   ## col_names = TRUE means that, after skipping (if any), the first row is the
@@ -79,17 +79,30 @@ length_match <- function(df, filename, skip = 0, col_names = TRUE) {
     quoted_newlines
 
   if(data_rows != nrow(df)) {
-    warning(filename, ":\n",
-            "    ", nrow(df), " row(s) given\n",
-            "    ", data_rows, " row(s) found")
+    error_string <-
+      paste0(
+        "length_match: ", filename, ":\n",
+        "    Raw data file length does not match data frame length")
+    error_string_verbose <-
+      paste0(
+        error_string,
+        "\n    ", nrow(df), " row(s) given\n",
+        "    ", data_rows, " row(s) found")
+    if(verbose) {
+      warning(error_string_verbose)
+    } else {
+      warning(error_string)
+    }
   } else {
-    message("length_match: pass")
+    message("length_match: ", filename, ": pass")
   }
   return(df) # Maybe to support piping
 }
 
 test_length_match <- function() {
   # Individual tests here
+
+  # label each by what they are testing for
   filename <- "testdata/length_match/length_match_basic.csv"
   df <- read_csv(filename, col_types = cols(.default = 'c'))
   length_match(df, filename)
@@ -129,9 +142,9 @@ test_length_match <- function() {
   ## read_csv can't do this one correctly!
   filename <- "testdata/length_match/length_match_combined.csv"
   df <- suppressWarnings(read_csv(filename, skip = 3, col_types = cols(.default = 'c')))
-  length_match(df, filename)
+  length_match(df, filename, verbose=F)
 
-  x <- ""
+  x <- "" # suppress the return type (is there a better way to do this)
 }
 
 test_length_match()
