@@ -6,6 +6,7 @@
 
 ## We are assuming all data files have similar number of columns, and names of columns or else they should have errored out before this step
 
+## The test files have columns defined in different order, and this still works
 
 ## Also, since the tidyverse is such an essential dependency for us in general,
 ## let's assume we're using tidyverse functions to import.
@@ -61,11 +62,6 @@ multifile_load <- function(df, list_of_filenames, skip = 0, col_names = TRUE) {
   } else {
     print('Watch out! The lengths of your individual files DO NOT EQUAL your data frame')
   }
-
-
-
-
-
 }
 
 test_multifile_load <- function() {
