@@ -30,47 +30,77 @@ multifile_load <- function(df, list_of_filenames, skip = 0, col_names = TRUE, ve
     random_row <- current_file[random_row_number,]
     first_row_match <- match_df(df, first_row)
     if (length(first_row_match) == 0) {
+      warning(paste0(
+        "multifile_load: ", filename, ":\n",
+        "    First row in file is missing!")
+      )
       print(paste("First row in file", filename, 'is missing!'))
     } else {
       if (verbose){
-        print(paste("First row in file", filename, 'is in your loaded data!'))
+        message(paste0(
+          "multifile_load: ", filename, ":\n",
+          "    First row in file is in your loaded data.")
+        )
       }
     }
 
     last_row_match <- match_df(df, first_row)
     if (length(last_row_match) == 0) {
-      print(paste("Last row in file", filename, 'is missing!'))
+      warning(paste0(
+        "multifile_load: ", filename, ":\n",
+        "    Last row in file is missing!")
+      )
     } else {
       if (verbose) {
-        print(paste("Last row in file", filename, 'is in your loaded data!'))
+        message(paste0(
+          "multifile_load: ", filename, ":\n",
+          "    Last row in file matches the loaded data frame.")
+        )
       }
     }
 
     middle_row_match <- match_df(df, middle_row)
     if (length(middle_row_match) == 0) {
-      print(paste("Middle row in file, (row", middle_row_number, ") ", filename, 'is missing!'))
+      warning(paste0(
+        "multifile_load: ", filename, ":\n",
+        "    Middle row in file is missing!")
+      )
     } else {
       if (verbose) {
-        print(paste("Middle row in file, (row", middle_row_number, ") ", filename, 'is in your loaded data!'))
+        message(paste0(
+          "multifile_load: ", filename, ":\n",
+          "    Middle row in file is in your loaded data frame.")
+        )
       }
     }
 
     random_row_match <- match_df(df, random_row)
     if (length(random_row_match) == 0) {
-      print(paste("Random row in file, (row", random_row_number, ") ", filename, 'is missing!'))
+      warning(paste0(
+        "multifile_load: ", filename, ":\n",
+        "    Random row ", random_row_number, " in file is missing!")
+      )
     } else {
       if (verbose){
-        print(paste("Random row in file, (row", random_row_number, ") ", filename, 'is in your loaded data!'))
-      }
+        message(paste0(
+          "multifile_load: ", filename, ":\n",
+          "    Random row ", random_row_number, " in file is in your loaded data frame.")
+        )      }
     }
   }
   added_file_length_test <- total_file_length == nrow(df)
   if (added_file_length_test == TRUE) {
     if (verbose) {
-      print("Your file lengths match!")
+      message(paste0(
+        "multifile_load: ", filename, ":\n",
+        "    The lengths of your individual files equal your data frame.")
+      )
     }
   } else {
-    print('Watch out! The lengths of your individual files DO NOT EQUAL your data frame')
+    warning(paste0(
+      "multifile_load: ", filename, ":\n",
+      "    The lengths of your individual files DO NOT add up to your data frame's length!")
+    )
   }
 }
 
@@ -78,7 +108,7 @@ test_multifile_load <- function() {
   # Individual tests here
   filelist <- c("testdata/multifile_load/triangle_data.csv", "testdata/multifile_load/square_data.csv")
   df <- filelist %>% map_df(~read_csv(.))
-  multifile_load(df, filelist)
+  multifile_load(df, filelist, verbose=TRUE)
   x <- ""
 }
 
