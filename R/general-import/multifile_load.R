@@ -16,7 +16,7 @@ library(stringr)
 library(tidyverse)
 library(plyr)
 
-multifile_load <- function(df, list_of_filenames, skip = 0, col_names = TRUE) {
+multifile_load <- function(df, list_of_filenames, skip = 0, col_names = TRUE, verbose=FALSE) {
   total_file_length = 0
   for (filename in list_of_filenames) {
     current_file <- read_csv(filename)
@@ -32,33 +32,43 @@ multifile_load <- function(df, list_of_filenames, skip = 0, col_names = TRUE) {
     if (length(first_row_match) == 0) {
       print(paste("First row in file", filename, 'is missing!'))
     } else {
-      print(paste("First row in file", filename, 'is in your loaded data!'))
+      if (verbose){
+        print(paste("First row in file", filename, 'is in your loaded data!'))
+      }
     }
 
     last_row_match <- match_df(df, first_row)
     if (length(last_row_match) == 0) {
       print(paste("Last row in file", filename, 'is missing!'))
     } else {
-      print(paste("Last row in file", filename, 'is in your loaded data!'))
+      if (verbose) {
+        print(paste("Last row in file", filename, 'is in your loaded data!'))
+      }
     }
 
     middle_row_match <- match_df(df, middle_row)
     if (length(middle_row_match) == 0) {
       print(paste("Middle row in file, (row", middle_row_number, ") ", filename, 'is missing!'))
     } else {
-      print(paste("Middle row in file, (row", middle_row_number, ") ", filename, 'is in your loaded data!'))
+      if (verbose) {
+        print(paste("Middle row in file, (row", middle_row_number, ") ", filename, 'is in your loaded data!'))
+      }
     }
 
     random_row_match <- match_df(df, random_row)
     if (length(random_row_match) == 0) {
       print(paste("Random row in file, (row", random_row_number, ") ", filename, 'is missing!'))
     } else {
-      print(paste("Random row in file, (row", random_row_number, ") ", filename, 'is in your loaded data!'))
+      if (verbose){
+        print(paste("Random row in file, (row", random_row_number, ") ", filename, 'is in your loaded data!'))
+      }
     }
   }
   added_file_length_test <- total_file_length == nrow(df)
   if (added_file_length_test == TRUE) {
-    print("Your file lengths match!")
+    if (verbose) {
+      print("Your file lengths match!")
+    }
   } else {
     print('Watch out! The lengths of your individual files DO NOT EQUAL your data frame')
   }
