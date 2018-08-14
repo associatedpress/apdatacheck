@@ -8,3 +8,5 @@ What "rules" for writing a module should apply to contributors?
 Are there common signatures we should apply to all modules created?
 How can people contribute? Pull request? Is there a modular way to contribute?
 How should we deal with column detection?
+Are we okay with proliferating data files?
+Should we look into creating mocks for some of these data files?
