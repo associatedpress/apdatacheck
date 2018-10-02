@@ -50,11 +50,11 @@ check_nas <- function(df) {
 
     n_na_string <-
       working_col %>%
-      check_column(function(x) {x == "NA"})
+      check_column(function(x) {trimws(toupper(x)) == "NA"})
 
     n_zero_string <-
       working_col %>%
-      check_column(function(x) {x == "0"})
+      check_column(function(x) {trimws(x) == "0"})
 
     n_punct_only <-
       working_col %>%
@@ -66,4 +66,14 @@ check_nas <- function(df) {
     results <-
       rbind(results, result_row)
   }
+  results
 }
+
+test_check_nas <- function() {
+  filename <- "testdata/check_nas/check_nas_1.csv"
+  df <- read_csv(filename)
+  check_nas(df) %>%
+    print
+}
+
+test_check_nas()
