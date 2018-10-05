@@ -12,6 +12,8 @@ Modules should be able to be pipeable, so that you can call several of them in a
 
 Modules are able to be wrapped in a script calling all available ones, so all checks can be run with one command. (We plan to implement at some point, but haven't yet.)
 
+In the docs folder, there are some not-totally-implemented notes on architecture questions around the project as a whole, as well as thoughts on standardizing errors/warnings when a data set doesn't quite pass muster, and fails the check.
+
 HOW YOU CAN HELP:
 We are soliciting feedback on method structure, signature and what we are testing. Let us know if you try it, have new sample data sets for us to test out, run into problems.
 
