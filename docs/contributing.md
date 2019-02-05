@@ -6,6 +6,8 @@ Data check is being implemented as a series of single functions that accomplish 
 
 Each function is contained in a file which is the same name. That file also contains the test function to test the implementation.
 
+Where relevant, functions are written with the data frame being tested as the first argument. This makes them conform to the 'pipe' operator.
+
 ### Folder structure
 
 `./docs/` - contains additional documentation such as this architecture note
