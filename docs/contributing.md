@@ -11,7 +11,9 @@ Where relevant, functions are written with the data frame being tested as the fi
 ### Folder structure
 
 `./docs/` - contains additional documentation such as this architecture note
-`./R/<heading>`/ - scripts are organized based on the headings from the checklist
+
+`./R/<heading>/` - scripts are organized based on the headings from the checklist
+
 `./testdata/<function_name>/` - data used to test implementations is put here
 
 ## Script implementation
