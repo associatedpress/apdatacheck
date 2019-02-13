@@ -6,7 +6,7 @@ Data check is being implemented as a series of single functions that accomplish 
 
 Each function is contained in a file which is the same name. That file also contains the test function to test the implementation.
 
-Where relevant, functions are written with the data frame being tested as the first argument. This makes them conform to the 'pipe' operator.
+Where relevant, functions are written with the data frame being tested as the first argument. The return value of a check function should also be the original data frame. This makes them conform to the 'pipe' (`%>%`) operator from `maigrittr`. Messages are sent to the user via `message(...)` or `warnings(...)`, detailed below.
 
 ### Folder structure
 
@@ -27,8 +27,6 @@ Ideally, excluding comments, each script file only has three parts. For example,
 ## Message style
 
 We currently use the console to report errors. R has a few built-in functions for this purpose:
-
-* `stop(message)`: This stops execution completely, and creates an Error action (which by default reports in the console).
 
 * `warnings(message)`: This does not stop execution; it prints the message, and adds the message to a list of warnings (which can be accessed with `warnings()`).
 
