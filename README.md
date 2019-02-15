@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # AP Data Check
 
 ## Overview
