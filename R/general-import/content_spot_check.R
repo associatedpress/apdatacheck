@@ -110,5 +110,3 @@ test_content_spot_check <- function() {
 
   invisible() # suppress the return type (is there a better way to do this)
 }
-
-test_content_spot_check()

@@ -2,7 +2,7 @@ library(dplyr)
 library(readr)
 
 id_grouping <- function(df, filepath, id_column, verbose=FALSE) {
-  grouped_ids <- df %>% group_by(NAT_ID) %>% summarize(count = n())
+  grouped_ids <- df %>% group_by_(id_column) %>% summarize(count = n())
   number_of_ids <- nrow(grouped_ids)
   duped_ids <- grouped_ids %>% filter(count != 1)
   if (nrow(duped_ids) != 0) {
@@ -30,5 +30,3 @@ test_id_grouping <- function() {
 
   x <- ""
 }
-
-test_id_grouping()

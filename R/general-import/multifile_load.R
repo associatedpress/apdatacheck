@@ -14,7 +14,7 @@
 library(readr)
 library(stringr)
 library(tidyverse)
-library(plyr)
+#library(plyr)
 
 multifile_load <- function(df, list_of_filenames, skip = 0, col_names = TRUE, verbose=FALSE) {
    total_file_length = 0
@@ -28,7 +28,7 @@ multifile_load <- function(df, list_of_filenames, skip = 0, col_names = TRUE, ve
      middle_row <- current_file[middle_row_number,]
      random_row_number <- ceiling(runif(1,1,nrow(current_file)))
      random_row <- current_file[random_row_number,]
-     first_row_match <- match_df(df, first_row)
+     first_row_match <- suppressMessages(semi_join(df, first_row))
      if (length(first_row_match) == 0) {
        warning(paste0(
          "multifile_load: ", filename, ":\n",
@@ -44,7 +44,7 @@ multifile_load <- function(df, list_of_filenames, skip = 0, col_names = TRUE, ve
        }
      }
 
-     last_row_match <- match_df(df, first_row)
+     last_row_match <- suppressMessages(semi_join(df, first_row))
      if (length(last_row_match) == 0) {
        warning(paste0(
          "multifile_load: ", filename, ":\n",
@@ -59,7 +59,7 @@ multifile_load <- function(df, list_of_filenames, skip = 0, col_names = TRUE, ve
        }
      }
 
-     middle_row_match <- match_df(df, middle_row)
+     middle_row_match <- suppressMessages(semi_join(df, middle_row))
      if (length(middle_row_match) == 0) {
        warning(paste0(
          "multifile_load: ", filename, ":\n",
@@ -74,7 +74,7 @@ multifile_load <- function(df, list_of_filenames, skip = 0, col_names = TRUE, ve
        }
      }
 
-     random_row_match <- match_df(df, random_row)
+     random_row_match <- suppressMessages(semi_join(df, random_row))
      if (length(random_row_match) == 0) {
        warning(paste0(
          "multifile_load: ", filename, ":\n",
@@ -119,5 +119,3 @@ test_multifile_load <- function() {
   multifile_load(df, filelist, verbose=TRUE)
   x <- ""
 }
-
-test_multifile_load()

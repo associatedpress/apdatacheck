@@ -146,5 +146,3 @@ test_length_match <- function() {
 
   invisible() # suppress the return type (is there a better way to do this)
 }
-
-test_length_match()

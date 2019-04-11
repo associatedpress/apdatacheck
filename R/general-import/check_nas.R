@@ -16,7 +16,7 @@ check_column <- function(working_col, test_function) {
 
   working_col %>%
     count(flag = test_function(label)) %>%
-    right_join(result_scaffold) %>%
+    right_join(result_scaffold, by = "flag") %>%
     mutate(n = ifelse(is.na(n), 0, n)) %>%
     filter(flag) %>%
     .$n
@@ -75,5 +75,3 @@ test_check_nas <- function() {
   check_nas(df) %>%
     print
 }
-
-test_check_nas()
