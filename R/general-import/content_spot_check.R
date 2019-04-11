@@ -17,7 +17,7 @@ content_spot_check <- function(df, filename, delim = ',', rows = 15, skip = 0, v
   #  skip = 2
   #  df <- data.frame()
   # Manual parsing
-  data <- strsplit(read_file(filename), '\n')[[1]]
+  data <- strsplit(read_file(filename), '\r\n')[[1]]
   if (length(data) == 0) {
     error_string <-
       paste0(

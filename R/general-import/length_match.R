@@ -57,14 +57,18 @@ length_match <- function(df, filename, skip = 0, col_names = TRUE, verbose = TRU
   ## header.
   ## col_names = FALSE means that, after skipping, the first row is data
   file_data <- read_file(filename)
-  newlines <- str_count(file_data, "\n") # TODO: properly handle quote blocks
+  newlines <- str_count(file_data, "\n") + 1
+  # TODO: properly handle quote blocks
 
   ## Ignore skipped rows and header row
   header_lines <- as.integer(skip) + col_names
   ## Ignore trailing newlines (should we care about newlines at end of file?)
   ## This math is incorrect if files are not assumed to end in newlines
-  trailing_blanks <- str_count(str_extract_all(file_data, "\n+$")[[1]], "\n") -
-    as.integer(1) ## end of file newline
+  trailing_blanks <- str_count(str_extract_all(file_data, "\n+$")[[1]], "\n")
+  if(length(trailing_blanks) == 0) {
+    # This is if trailing_blanks is the empty list; i.e. no trailing blanks
+    trailing_blanks <- 0
+  }
   ## Ignore newlines within quote blocks
   ## It turns out this is a very dangerous and uncertain zone in terms of
   ## behavior -- so maybe we try our best & just issue a special warning
