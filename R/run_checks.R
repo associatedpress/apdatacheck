@@ -13,7 +13,7 @@ source('R/joining/count_rows.R')
 # test_multifile_load()
 # test_length_match()
 
-run_import_checks <- function(dataframe, filename) {
+import_checks <- function(dataframe, filename) {
   dataframe %>%
     length_match(filename)
 }
