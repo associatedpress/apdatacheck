@@ -25,3 +25,5 @@ This file contains outstanding questions that come up about implementing data ch
 11. Are we okay with proliferating data files?
 
 12. Should we look into creating mocks for some of these data files?
+
+13. Should we create a module that, separately from _checking_ operations, does a preprocessing step on the data files (most likely guided by the person running it)?
