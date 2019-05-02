@@ -20,7 +20,7 @@ total_check <- function(df, keywords = c("subtotal", "total", "sum")) {
     filter_all(any_vars(grepl(paste(keywords, collapse = "|"), ., ignore.case=T)))
   if(nrow(suspect_rows) > 0) {
     # issue the warning
-    warning("Totals detected as rows (keyword search)")
+    warning("total_check: Totals detected as rows (keyword search)")
   }
 
   # 2. Doing some numerical search - are any rows apparently a total of other rows
