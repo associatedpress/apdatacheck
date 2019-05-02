@@ -12,8 +12,16 @@
 # Should we assume this function is run only after we've 'cleaned' the data
 # with regards to what columns are what type and what the raw data represents?
 
+check_column_for_outlier <- function(column, threshold) {
+  suspect_rows <- column %>%
+    data.frame() %>%
+    mutate(standardized = scale(column)) %>%
+    filter(standardized > threshold)
 
-total_check <- function(df, keywords = c("subtotal", "total", "sum")) {
+  return(nrow(suspect_rows) > 0)
+}
+
+total_check <- function(df, keywords = c("subtotal", "total", "sum"), threshold = 4) {
   # 1. Finding the presence of key words in rows in the data frame
 
   suspect_rows <- df %>%
@@ -23,19 +31,22 @@ total_check <- function(df, keywords = c("subtotal", "total", "sum")) {
     warning("total_check: Totals detected as rows (keyword search)")
   }
 
-  # 2. Doing some numerical search - are any rows apparently a total of other rows
-  # 2.1 If you sort it and the 'largest' row is substantially bigger
+  # 2. Detecting totals/subtotals by looking at how much of an outlier they are
+  # Data.world's strategy: are there any rows that are N many standard
+  # deviations above the mean? Flag them
 
-  # Working only within numerical columns
-  #
-  #  - sort it
-  #  - skim off top row
-  #  - check if it's
-  #    - really big?
-  #    - the sum of all the others
+  numeric_columns <- df %>%
+    select_if(is.numeric)
 
-  # Question: how do we handle it if there are multiple 'total' rows that are identical?
-  # (see: testdata/total_check/multiple_totals.csv)
+  if(ncol(numeric_columns) != 0) {
+    suspect_columns <- df %>%
+      select_if(is.numeric) %>%
+      apply(2, function(x) {check_column_for_outlier(x, threshold)})
+
+    if(reduce(suspect_columns, `|`)) {
+      warning("total_check: Outlier found more than ", threshold, " standard deviations above")
+    }
+  }
 }
 
 test_total_check <- function() {
@@ -46,9 +57,3 @@ test_total_check <- function() {
 }
 
 test_total_check()
-
-
-
-# mtcars %>%
-#   group_by(mpg == max(mpg)) %>%
-#   summarize(total = sum(mpg))
