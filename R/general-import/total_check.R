@@ -43,6 +43,7 @@ test_total_check <- function() {
   total_check(read_csv("testdata/total_check/subtotal.csv"))
   total_check(read_csv("testdata/total_check/hidden_name.csv"))
   total_check(read_csv("testdata/total_check/check_type.csv"))
+  total_check(read_csv("testdata/total_check/PEP_2018_PEPANNRES.csv"))
 }
 
 test_total_check()
