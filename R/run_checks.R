@@ -1,3 +1,10 @@
+#' Load the data checking functions as well as a high level
+#' "run all checks" function.
+#' @param dataframe The data frame to run checks against
+#' @export
+#' @examples
+#' run_all_checks(mtcars)
+
 library(tidyverse)
 source('R/general-import/check_nas.R')
 source('R/general-import/content_spot_check.R')
