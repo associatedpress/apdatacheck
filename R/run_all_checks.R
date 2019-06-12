@@ -2,20 +2,15 @@
 #' "run all checks" function.
 #' @import tidyverse
 library(tidyverse)
-source('R/general-import/check_nas.R')
-source('R/general-import/content_spot_check.R')
-source('R/general-import/id_grouping.R')
-source('R/general-import/length_match.R')
-source('R/general-import/multifile_load.R')
-source('R/joining/check_keys.R')
-source('R/joining/count_rows.R')
+load('R/general-import/check_nas.R')
+load('R/general-import/content_spot_check.R')
+load('R/general-import/id_grouping.R')
+load('R/general-import/length_match.R')
+load('R/general-import/multifile_load.R')
+load('R/joining/check_keys.R')
+load('R/joining/count_rows.R')
 
-# test_check_nas()
-# test_content_spot_check()
-# test_id_grouping()
-# test_multifile_load()
-# test_length_match()
-
+# Import checks ----
 #' @export
 import_checks <- function(dataframe, filename) {
   dataframe %>%
