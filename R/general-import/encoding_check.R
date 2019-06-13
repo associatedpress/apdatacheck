@@ -5,24 +5,36 @@
 # Return data frame where the rows are all of the suspicious rows? (w/ row index)
 # If this data frame is empty pass
 
-encoding_check <- function(df, bad_seqs = c("Ã©", "Ã±")) {
+# NOTE: should we look at byte sequences instead?
+
+# TODO: Fix this regex to correctly catch all keyboard-typable letters
+# I think it's the escaping that needs to be done properly
+encoding_check <- function(df, bad_seq_regex = "[^[`1234567890-=qwertyuiop[]\\asdfghjkl;'zxcvbnm,\\./ ~!@#$%^&*()_+QWERTYUIOP\\{\\}|ASDFGHJKL:\"ZXCVBNM<>?`]]") {
   # 1. Finding the presence of bad sequences in rows in the data frame
   # 2. Return encoding errors
   # Return intersection of column and row where possible error occurs?
   suspect_rows <- df %>%
-    filter_all(any_vars(grepl(paste(bad_seqs, collapse = "|"), ., ignore.case=T)))
-  print(suspect_rows)
+    mutate(rownumber = row_number()) %>%
+    filter_all(any_vars(grepl(bad_seq_regex, .)))
+
   if(nrow(suspect_rows) > 0) {
     # issue the warning
-    warning(paste("encoding_check: Possible encoding error detected in rows (bad_seqs search)"))
+    suspect_row_string <- paste0(
+      "   Row(s): [",
+      paste(suspect_rows$rownumber, collapse = ','),
+      "]"
+    )
+    warning(paste("encoding_check: Possible encoding error detected (bad_seqs search):\n",
+                  suspect_row_string))
   }
 }
 
 test_encoding_check <- function() {
   encoding_check(read_csv("testdata/encoding_check/e_n.csv"))
-  # finalize with the complete set of test files
+  encoding_check(read_csv("testdata/encoding_check/incoming_1252.csv"))
+  encoding_check(read_csv("testdata/encoding_check/incoming_utf8.csv"))
+  encoding_check(read_csv("testdata/encoding_check/roundtrip.csv"))
 }
 
 test_encoding_check()
 
-# NOTE: should we look at byte sequences instead?
