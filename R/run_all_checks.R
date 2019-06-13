@@ -1,14 +1,6 @@
 #' Load the data checking functions as well as a high level
 #' "run all checks" function.
 #' @import tidyverse
-library(tidyverse)
-load('R/general-import/check_nas.R')
-load('R/general-import/content_spot_check.R')
-load('R/general-import/id_grouping.R')
-load('R/general-import/length_match.R')
-load('R/general-import/multifile_load.R')
-load('R/joining/check_keys.R')
-load('R/joining/count_rows.R')
 
 # Import checks ----
 #' @export
