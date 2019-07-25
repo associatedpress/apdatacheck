@@ -1,14 +1,11 @@
 # check for missing data
 # confirm if real values
-
 # ---
 # What we'll produce:
 # A 'column report', that says what % of a col are NA/blank
-
 # Theres probably significant performance improvements?
 # 1. The for loop
 # 2. The way we stitch together the results from the for loop
-
 # Helper function to make the checks themselves look cleaner
 check_column <- function(working_col, test_function) {
   result_scaffold <-
