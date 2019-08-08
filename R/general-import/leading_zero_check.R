@@ -1,10 +1,63 @@
 # Are there any leading zeros being dropped off data (ZIP codes!)?
 # Is such data being interpreted as strings (ZIP codes should not be numbers)?
+# TODO: Trailing zeroes are still kinda broken
+# Leading zero case is handled
 
-leading_zero_check <- function(...) {
+leading_zero_check <- function(df, filename, trailing_zero_flag = F) {
+  # Do you care about trailing zeroes
+  # Go through all numeric columns
+  # Double check with the _original_ file if any of them have leading zero entries
 
+  # All-character data frame
+  file_raw <- read_csv(filename,
+                       col_types = cols(.default = 'c'))
+
+  # If we don't care about trailing zeroes, drop all trailing zeroes
+  if(trailing_zero_flag) {
+    trailing_zero_drop <- function(column) {
+      gsub("\\.$", "", ifelse(
+        grepl("\\.[1-9]?[0]+$", column),
+        gsub("[0]+$", "", column),
+        column)
+      )
+    }
+    file_raw <-
+      file_raw %>%
+      mutate_all(trailing_zero_drop)
+  }
+
+
+  # Getting all numeric columns:
+  df_numeric <- df %>%
+    select_if(is.numeric) %>%
+    mutate_all(as.character)
+
+  # Find mismatches - places where the numeric column disagrees with the original
+  suspect_rows <- df_numeric %>%
+    mutate(rownumber = row_number()) %>%
+    anti_join(file_raw)
+
+  if(nrow(suspect_rows) > 0) {
+    # issue the warning
+    suspect_col_string <- paste0(
+      colnames(suspect_rows %>% select(-rownumber)), collapse = ','
+    )
+    suspect_row_string <- paste0(
+      "\n   Row(s): [",
+      paste(suspect_rows$rownumber, collapse = ','),
+      "]"
+    )
+    warning(paste("leading_zero_check: Leading zeroes dropped in column(s):\n",
+                  suspect_col_string,
+                  suspect_row_string))
+  }
 }
 
 test_leading_zero_check <- function() {
-
+  leading_zero_check(
+    read_csv("testdata/leading_zero_check/zip_codes.csv", guess_max = 1),
+    "testdata/leading_zero_check/zip_codes.csv")
+  leading_zero_check(
+    read_csv("testdata/leading_zero_check/zip_codes_2.csv", guess_max = 1),
+    "testdata/leading_zero_check/zip_codes_2.csv")
 }
