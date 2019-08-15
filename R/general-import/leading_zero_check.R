@@ -1,9 +1,7 @@
 # Are there any leading zeros being dropped off data (ZIP codes!)?
 # Is such data being interpreted as strings (ZIP codes should not be numbers)?
-# TODO: Trailing zeroes are still kinda broken
-# Leading zero case is handled
 
-leading_zero_check <- function(df, filename, trailing_zero_flag = F) {
+leading_zero_check <- function(df, filename) {
   # Do you care about trailing zeroes
   # Go through all numeric columns
   # Double check with the _original_ file if any of them have leading zero entries
@@ -11,21 +9,6 @@ leading_zero_check <- function(df, filename, trailing_zero_flag = F) {
   # All-character data frame
   file_raw <- read_csv(filename,
                        col_types = cols(.default = 'c'))
-
-  # If we don't care about trailing zeroes, drop all trailing zeroes
-  if(trailing_zero_flag) {
-    trailing_zero_drop <- function(column) {
-      gsub("\\.$", "", ifelse(
-        grepl("\\.[1-9]?[0]+$", column),
-        gsub("[0]+$", "", column),
-        column)
-      )
-    }
-    file_raw <-
-      file_raw %>%
-      mutate_all(trailing_zero_drop)
-  }
-
 
   # Getting all numeric columns:
   df_numeric <- df %>%
