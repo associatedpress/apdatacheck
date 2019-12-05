@@ -1,6 +1,7 @@
 library(dplyr)
 library(readr)
 
+#' @export
 id_grouping <- function(df, filepath, id_column, verbose=FALSE) {
   grouped_ids <- df %>% group_by_(id_column) %>% summarize(count = n())
   number_of_ids <- nrow(grouped_ids)

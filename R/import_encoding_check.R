@@ -1,3 +1,4 @@
+library(tidyverse)
 # Look for specific sequences that may indicate an encoding issue
 #
 # Once we find a suspicious sequence...
@@ -9,6 +10,7 @@
 
 # TODO: Fix this regex to correctly catch all keyboard-typable letters
 # I think it's the escaping that needs to be done properly
+#' @export
 encoding_check <- function(df, bad_seq_regex = "[^[`1234567890-=qwertyuiop[]\\asdfghjkl;'zxcvbnm,\\./ ~!@#$%^&*()_+QWERTYUIOP\\{\\}|ASDFGHJKL:\"ZXCVBNM<>?`]]") {
   # 1. Finding the presence of bad sequences in rows in the data frame
   # 2. Return encoding errors

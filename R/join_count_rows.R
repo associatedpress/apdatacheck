@@ -2,6 +2,7 @@
 # This function should have no return; it will be called entirely for its
 # warnings
 # Is this redundant with check_keys?
+#' @export
 count_rows <- function(left, right, by = NULL, join_type) {
   left_rows <- left %>% nrow()
   right_rows <- right %>% nrow()

@@ -16,6 +16,7 @@ library(stringr)
 library(tidyverse)
 #library(plyr)
 
+#' @export
 multifile_load <- function(df, list_of_filenames, skip = 0, col_names = TRUE, verbose=FALSE) {
    total_file_length = 0
    for (filename in list_of_filenames) {

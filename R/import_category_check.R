@@ -21,6 +21,7 @@
 
 # To extend this function to other standardizations, modify the contents of the
 # mutate statement
+#' @export
 category_check <- function(df, col_name) {
   # Base case
   column_of_interest <- df %>% count(!!(enquo(col_name)))

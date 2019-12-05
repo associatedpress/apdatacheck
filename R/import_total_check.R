@@ -12,6 +12,7 @@
 # Should we assume this function is run only after we've 'cleaned' the data
 # with regards to what columns are what type and what the raw data represents?
 
+#' @export
 check_column_for_outlier <- function(column, threshold) {
   suspect_rows <- column %>%
     data.frame() %>%
@@ -21,6 +22,7 @@ check_column_for_outlier <- function(column, threshold) {
   return(nrow(suspect_rows) > 0)
 }
 
+#' @export
 total_check <- function(df, keywords = c("subtotal", "total", "sum"), threshold = 4) {
   # 1. Finding the presence of key words in rows in the data frame
 

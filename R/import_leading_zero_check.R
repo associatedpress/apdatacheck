@@ -1,6 +1,7 @@
 # Are there any leading zeros being dropped off data (ZIP codes!)?
 # Is such data being interpreted as strings (ZIP codes should not be numbers)?
 
+#' @export
 leading_zero_check <- function(df, filename) {
   # Do you care about trailing zeroes
   # Go through all numeric columns

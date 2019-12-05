@@ -10,7 +10,7 @@
 ## Column mismatch
 
 library(readr)
-
+#' @export
 content_spot_check <- function(df, filename, delim = ',', rows = 15, skip = 0, verbose = T) {
   #  filename <- "testdata/content_spot_check/content_spot_check_long_header.csv"
   #  df <- iris

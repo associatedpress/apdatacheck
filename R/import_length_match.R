@@ -50,6 +50,7 @@
 library(readr)
 library(stringr)
 
+#' @export
 length_match <- function(df, filename, skip = 0, col_names = TRUE, verbose = TRUE) {
   ## skip tells the function to skip that many rows before parsing data
   ## Note that col_names = TRUE is the general pattern in tidyverse imports

@@ -1,5 +1,5 @@
-source('R/joining/check_keys.R')
-source('R/joining/count_rows.R')
+source('R/join_check_keys.R')
+source('R/join_count_rows.R')
 
 # Join functions -----
 # define our new join functions

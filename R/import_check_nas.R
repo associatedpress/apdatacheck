@@ -7,6 +7,7 @@
 # 1. The for loop
 # 2. The way we stitch together the results from the for loop
 # Helper function to make the checks themselves look cleaner
+#' @export
 check_column <- function(working_col, test_function) {
   result_scaffold <-
     data.frame(flag = c(TRUE, FALSE))

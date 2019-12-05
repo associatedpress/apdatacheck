@@ -1,6 +1,7 @@
 library(tidyverse)
 
 # Like other join checks, we don't return any type here, just messages
+#' @export
 check_keys <- function(left, right, by = by, verbose = F, join_type = "left") {
   left_nondistinct <- left %>% count_(by) %>% filter(n > 1)
   right_nondistinct <- right %>% count_(by) %>% filter(n > 1)
