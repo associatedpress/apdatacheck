@@ -21,7 +21,16 @@
 
 # To extend this function to other standardizations, modify the contents of the
 # mutate statement
+#' Validating categories
+#'
+#' What kind of problem are we solving?
+#' User claims a column represents dates
+#' We want to try to catch and see if it might have been parsed wrong
+#' Any invalid dates
+#' This function takes in a column that has already been assigned a Date type and
+#' checks to see if the entries in that column make sense
 #' @export
+
 category_check <- function(df, col_name) {
   # Base case
   column_of_interest <- df %>% count(!!(enquo(col_name)))

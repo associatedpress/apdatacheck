@@ -16,7 +16,16 @@ library(stringr)
 library(tidyverse)
 #library(plyr)
 
+#' Checking multifile load
+#'
+#' What kind of problem are we solving?
+#' User claims a column represents dates
+#' We want to try to catch and see if it might have been parsed wrong
+#' Any invalid dates
+#' This function takes in a column that has already been assigned a Date type and
+#' checks to see if the entries in that column make sense
 #' @export
+
 multifile_load <- function(df, list_of_filenames, skip = 0, col_names = TRUE, verbose=FALSE) {
    total_file_length = 0
    for (filename in list_of_filenames) {

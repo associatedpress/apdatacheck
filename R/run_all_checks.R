@@ -3,7 +3,16 @@
 #' @import tidyverse
 
 # Import checks ----
+#' Import checks
+#'
+#' What kind of problem are we solving?
+#' User claims a column represents dates
+#' We want to try to catch and see if it might have been parsed wrong
+#' Any invalid dates
+#' This function takes in a column that has already been assigned a Date type and
+#' checks to see if the entries in that column make sense
 #' @export
+
 import_checks <- function(dataframe, filename) {
   dataframe %>%
     length_match(filename)
@@ -11,6 +20,14 @@ import_checks <- function(dataframe, filename) {
 
 # Join functions -----
 # define our new join functions
+#' Join check
+#'
+#' What kind of problem are we solving?
+#' User claims a column represents dates
+#' We want to try to catch and see if it might have been parsed wrong
+#' Any invalid dates
+#' This function takes in a column that has already been assigned a Date type and
+#' checks to see if the entries in that column make sense
 #' @export
 left_join_dc <- function(left, right, by = NULL, verbose = F) {
   check_keys(left, right, by, verbose)
@@ -18,6 +35,14 @@ left_join_dc <- function(left, right, by = NULL, verbose = F) {
   left_join(left, right, by)
 }
 
+#' Join checks
+#'
+#' What kind of problem are we solving?
+#' User claims a column represents dates
+#' We want to try to catch and see if it might have been parsed wrong
+#' Any invalid dates
+#' This function takes in a column that has already been assigned a Date type and
+#' checks to see if the entries in that column make sense
 #' @export
 right_join_dc <- function(left, right, by = NULL, verbose = F) {
   check_keys(left, right, by, verbose)
@@ -25,6 +50,14 @@ right_join_dc <- function(left, right, by = NULL, verbose = F) {
   right_join(left, right, by)
 }
 
+#' Join checks
+#'
+#' What kind of problem are we solving?
+#' User claims a column represents dates
+#' We want to try to catch and see if it might have been parsed wrong
+#' Any invalid dates
+#' This function takes in a column that has already been assigned a Date type and
+#' checks to see if the entries in that column make sense
 #' @export
 inner_join_dc <- function(left, right, by = NULL, verbose = F) {
   check_keys(left, right, by, verbose)
@@ -32,6 +65,14 @@ inner_join_dc <- function(left, right, by = NULL, verbose = F) {
   inner_join(left, right, by)
 }
 
+#' Join checks
+#'
+#' What kind of problem are we solving?
+#' User claims a column represents dates
+#' We want to try to catch and see if it might have been parsed wrong
+#' Any invalid dates
+#' This function takes in a column that has already been assigned a Date type and
+#' checks to see if the entries in that column make sense
 #' @export
 full_join_dc <- function(left, right, by = NULL, verbose = F) {
   check_keys(left, right, by, verbose)
@@ -39,6 +80,14 @@ full_join_dc <- function(left, right, by = NULL, verbose = F) {
   full_join(left, right, by)
 }
 
+#' Join checks
+#'
+#' What kind of problem are we solving?
+#' User claims a column represents dates
+#' We want to try to catch and see if it might have been parsed wrong
+#' Any invalid dates
+#' This function takes in a column that has already been assigned a Date type and
+#' checks to see if the entries in that column make sense
 #' @export
 semi_join_dc <- function(left, right, by = NULL, verbose = F) {
   check_keys(left, right, by, verbose)
@@ -46,6 +95,14 @@ semi_join_dc <- function(left, right, by = NULL, verbose = F) {
   semi_join(left, right, by)
 }
 
+#' Join checks
+#'
+#' What kind of problem are we solving?
+#' User claims a column represents dates
+#' We want to try to catch and see if it might have been parsed wrong
+#' Any invalid dates
+#' This function takes in a column that has already been assigned a Date type and
+#' checks to see if the entries in that column make sense
 #' @export
 anti_join_dc <- function(left, right, by = NULL, verbose = F) {
   check_keys(left, right, by, verbose)
@@ -54,6 +111,14 @@ anti_join_dc <- function(left, right, by = NULL, verbose = F) {
 }
 
 # Run all checks -----
+#' Run all checks
+#'
+#' What kind of problem are we solving?
+#' User claims a column represents dates
+#' We want to try to catch and see if it might have been parsed wrong
+#' Any invalid dates
+#' This function takes in a column that has already been assigned a Date type and
+#' checks to see if the entries in that column make sense
 #' @export
 run_all_checks <- function(dataframe) {
   dataframe %>%

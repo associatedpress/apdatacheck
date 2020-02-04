@@ -1,7 +1,16 @@
 # Are there any leading zeros being dropped off data (ZIP codes!)?
 # Is such data being interpreted as strings (ZIP codes should not be numbers)?
 
+#' Checking for leading zeroes
+#'
+#' What kind of problem are we solving?
+#' User claims a column represents dates
+#' We want to try to catch and see if it might have been parsed wrong
+#' Any invalid dates
+#' This function takes in a column that has already been assigned a Date type and
+#' checks to see if the entries in that column make sense
 #' @export
+
 leading_zero_check <- function(df, filename) {
   # Do you care about trailing zeroes
   # Go through all numeric columns

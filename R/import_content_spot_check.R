@@ -10,7 +10,16 @@
 ## Column mismatch
 
 library(readr)
+#' Spot checking overall content
+#'
+#' What kind of problem are we solving?
+#' User claims a column represents dates
+#' We want to try to catch and see if it might have been parsed wrong
+#' Any invalid dates
+#' This function takes in a column that has already been assigned a Date type and
+#' checks to see if the entries in that column make sense
 #' @export
+
 content_spot_check <- function(df, filename, delim = ',', rows = 15, skip = 0, verbose = T) {
   #  filename <- "testdata/content_spot_check/content_spot_check_long_header.csv"
   #  df <- iris

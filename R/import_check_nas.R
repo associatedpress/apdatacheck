@@ -7,7 +7,16 @@
 # 1. The for loop
 # 2. The way we stitch together the results from the for loop
 # Helper function to make the checks themselves look cleaner
+#' Checking for missing data
+#'
+#' What kind of problem are we solving?
+#' User claims a column represents dates
+#' We want to try to catch and see if it might have been parsed wrong
+#' Any invalid dates
+#' This function takes in a column that has already been assigned a Date type and
+#' checks to see if the entries in that column make sense
 #' @export
+
 check_column <- function(working_col, test_function) {
   result_scaffold <-
     data.frame(flag = c(TRUE, FALSE))
