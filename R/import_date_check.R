@@ -1,15 +1,17 @@
+#' Validating dates
+#'
 #' What kind of problem are we solving?
 #' User claims a column represents dates
 #' We want to try to catch and see if it might have been parsed wrong
 #' Any invalid dates
-#'
 #' This function takes in a column that has already been assigned a Date type and
 #' checks to see if the entries in that column make sense
-#' Todo:
-#' Fix output warning formatting to be in the same style as the rest of datacheck
-#' Fix quasiquotation for passing in columns as arguments
-#' Possibly implement some kind of outlier detection for dates?
 #' @export
+
+# Todo:
+# Fix output warning formatting to be in the same style as the rest of datacheck
+# Fix quasiquotation for passing in columns as arguments
+# Possibly implement some kind of outlier detection for dates?
 date_check <- function(df, col, check_future=T, date_blacklist=as.Date(c("1899-12-31", "1900-01-01", "1901-01-01", "1904-01-02", "9999-09-09")), valid_date_range = c(1970, 2050)) {
   df <- df %>% mutate(row_number = row_number())
   # 1.1 check for suspicious days

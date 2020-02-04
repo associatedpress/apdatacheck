@@ -2,10 +2,7 @@
 % Please edit documentation in R/import_date_check.R
 \name{date_check}
 \alias{date_check}
-\title{What kind of problem are we solving?
-User claims a column represents dates
-We want to try to catch and see if it might have been parsed wrong
-Any invalid dates}
+\title{Validating dates}
 \usage{
 date_check(
   df,
@@ -17,10 +14,10 @@ date_check(
 )
 }
 \description{
+What kind of problem are we solving?
+User claims a column represents dates
+We want to try to catch and see if it might have been parsed wrong
+Any invalid dates
 This function takes in a column that has already been assigned a Date type and
 checks to see if the entries in that column make sense
-Todo:
-Fix output warning formatting to be in the same style as the rest of datacheck
-Fix quasiquotation for passing in columns as arguments
-Possibly implement some kind of outlier detection for dates?
 }
