@@ -3,14 +3,10 @@
 #' @import tidyverse
 
 # Import checks ----
-#' Import checks
+#' Confirm data frame import is the length that we expect
 #'
-#' What kind of problem are we solving?
-#' User claims a column represents dates
-#' We want to try to catch and see if it might have been parsed wrong
-#' Any invalid dates
-#' This function takes in a column that has already been assigned a Date type and
-#' checks to see if the entries in that column make sense
+#' Compares length of the data frame loaded into r
+#' with the length of the file that it came from
 #' @export
 
 import_checks <- function(dataframe, filename) {
@@ -20,10 +16,10 @@ import_checks <- function(dataframe, filename) {
 
 # Join functions -----
 # define our new join functions
-#' Join check
+#' Left join
 #'
-#' What kind of problem are we solving?
-#' User claims a column represents dates
+#' Checks that when a left join is performed
+#' between two data sets
 #' We want to try to catch and see if it might have been parsed wrong
 #' Any invalid dates
 #' This function takes in a column that has already been assigned a Date type and
