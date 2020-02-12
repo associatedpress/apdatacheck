@@ -1,23 +1,26 @@
 # Are there any leading zeros being dropped off data (ZIP codes!)?
 # Is such data being interpreted as strings (ZIP codes should not be numbers)?
 
-#' Checking for leading zeroes
+#' Leading zero check
 #'
-#' What kind of problem are we solving?
-#' User claims a column represents dates
-#' We want to try to catch and see if it might have been parsed wrong
-#' Any invalid dates
-#' This function takes in a column that has already been assigned a Date type and
-#' checks to see if the entries in that column make sense
+#'Params
+#'df = data frame to check
+#'filepath - path to raw file we imported into data frame
+#'
+#'Function accesses columns with numeric input and checks for rows where
+#'the numbers in columns don't match between the raw file and the dataframe,
+#'this denotes where leading zeroes are not carried over from the raw file
+#'to the dataframe.
+
 #' @export
 
-leading_zero_check <- function(df, filename) {
+leading_zero_check <- function(df, filepath) {
   # Do you care about trailing zeroes
   # Go through all numeric columns
   # Double check with the _original_ file if any of them have leading zero entries
 
   # All-character data frame
-  file_raw <- read_csv(filename,
+  file_raw <- read_csv(filepath,
                        col_types = cols(.default = 'c'))
 
   # Getting all numeric columns:

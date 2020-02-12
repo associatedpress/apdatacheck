@@ -7,14 +7,14 @@
 # 1. The for loop
 # 2. The way we stitch together the results from the for loop
 # Helper function to make the checks themselves look cleaner
-#' Checking for missing data
+#' Checking for nas or missing data
 #'
-#' What kind of problem are we solving?
-#' User claims a column represents dates
-#' We want to try to catch and see if it might have been parsed wrong
-#' Any invalid dates
-#' This function takes in a column that has already been assigned a Date type and
-#' checks to see if the entries in that column make sense
+#' User provides a column to check for missing values
+#' The function summarizes how many values are either missing or blank and reports
+#' that to user
+#' Optionally, user can provide a test function which can check for additional missing values
+#' this test_function should return true for a value if it should be flagged as missing or empty
+
 #' @export
 
 check_column <- function(working_col, test_function) {

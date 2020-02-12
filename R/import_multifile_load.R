@@ -16,20 +16,25 @@ library(stringr)
 library(tidyverse)
 #library(plyr)
 
-#' Checking multifile load
+#' Multifile load
 #'
-#' What kind of problem are we solving?
-#' User claims a column represents dates
-#' We want to try to catch and see if it might have been parsed wrong
-#' Any invalid dates
-#' This function takes in a column that has already been assigned a Date type and
-#' checks to see if the entries in that column make sense
+#'Parameters:
+#'df = dataframe
+#'list_of_filepaths = a list of paths to files user is trying to merge
+#'skip = number of rows to skip
+#'col_names = if row skipped, if this is true, the new first row is column names, if false, the new first row denotes data values
+#'in the dataframe
+#'verbose = if true, more comprehensive output is given
+#'
+
+#' This function spotchecks rows in the dataframe to see that the multiple files
+#' user is attempting to merge have all been loaded into the dataframe
 #' @export
 
-multifile_load <- function(df, list_of_filenames, skip = 0, col_names = TRUE, verbose=FALSE) {
+multifile_load <- function(df, list_of_filepaths, skip = 0, col_names = TRUE, verbose=FALSE) {
    total_file_length = 0
-   for (filename in list_of_filenames) {
-    current_file <- read_csv(filename, col_types = cols(.default = "c"))
+   for (filepath in list_of_filepaths) {
+    current_file <- read_csv(filepath, col_types = cols(.default = "c"))
     total_file_length <- nrow(current_file) + total_file_length
 
      first_row <- head(current_file, 1)
@@ -41,14 +46,14 @@ multifile_load <- function(df, list_of_filenames, skip = 0, col_names = TRUE, ve
      first_row_match <- suppressMessages(semi_join(df, first_row))
      if (length(first_row_match) == 0) {
        warning(paste0(
-         "multifile_load: ", filename, ":\n",
+         "multifile_load: ", filepath, ":\n",
          "    First row in file is missing!")
        )
-       print(paste("First row in file", filename, 'is missing!'))
+       print(paste("First row in file", filepath, 'is missing!'))
      } else {
        if (verbose){
          message(paste0(
-           "multifile_load: ", filename, ":\n",
+           "multifile_load: ", filepath, ":\n",
            "    First row in file is in your loaded data.")
          )
        }
@@ -57,13 +62,13 @@ multifile_load <- function(df, list_of_filenames, skip = 0, col_names = TRUE, ve
      last_row_match <- suppressMessages(semi_join(df, first_row))
      if (length(last_row_match) == 0) {
        warning(paste0(
-         "multifile_load: ", filename, ":\n",
+         "multifile_load: ", filepath, ":\n",
          "    Last row in file is missing!")
        )
      } else {
        if (verbose) {
          message(paste0(
-           "multifile_load: ", filename, ":\n",
+           "multifile_load: ", filepath, ":\n",
            "    Last row in file matches the loaded data frame.")
          )
        }
@@ -72,13 +77,13 @@ multifile_load <- function(df, list_of_filenames, skip = 0, col_names = TRUE, ve
      middle_row_match <- suppressMessages(semi_join(df, middle_row))
      if (length(middle_row_match) == 0) {
        warning(paste0(
-         "multifile_load: ", filename, ":\n",
+         "multifile_load: ", filepath, ":\n",
          "    Middle row in file is missing!")
        )
      } else {
        if (verbose) {
          message(paste0(
-           "multifile_load: ", filename, ":\n",
+           "multifile_load: ", filepath, ":\n",
            "    Middle row in file is in your loaded data frame.")
          )
        }
@@ -87,13 +92,13 @@ multifile_load <- function(df, list_of_filenames, skip = 0, col_names = TRUE, ve
      random_row_match <- suppressMessages(semi_join(df, random_row))
      if (length(random_row_match) == 0) {
        warning(paste0(
-         "multifile_load: ", filename, ":\n",
+         "multifile_load: ", filepath, ":\n",
          "    Random row ", random_row_number, " in file is missing!")
        )
      } else {
        if (verbose){
          message(paste0(
-           "multifile_load: ", filename, ":\n",
+           "multifile_load: ", filepath, ":\n",
            "    Random row ", random_row_number, " in file is in your loaded data frame.")
          )      }
      }
@@ -102,13 +107,13 @@ multifile_load <- function(df, list_of_filenames, skip = 0, col_names = TRUE, ve
    if (added_file_length_test == TRUE) {
      if (verbose) {
        message(paste0(
-         "multifile_load: ", filename, ":\n",
+         "multifile_load: ", filepath, ":\n",
          "    The lengths of your individual files equal your data frame.")
        )
      }
    } else {
      warning(paste0(
-       "multifile_load: ", filename, ":\n",
+       "multifile_load: ", filepath, ":\n",
        "    The lengths of your individual files DO NOT add up to your data frame's length!")
      )
    }

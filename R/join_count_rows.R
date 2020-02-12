@@ -2,14 +2,17 @@
 # This function should have no return; it will be called entirely for its
 # warnings
 # Is this redundant with check_keys?
-#' Checking rows in join
+#' Counting join rows
 #'
-#' What kind of problem are we solving?
-#' User claims a column represents dates
-#' We want to try to catch and see if it might have been parsed wrong
-#' Any invalid dates
-#' This function takes in a column that has already been assigned a Date type and
-#' checks to see if the entries in that column make sense
+#' Parameters:
+#' left = dataframe that we want to merge on the left side of the join
+#' right = dataframe that we want to merge on the right side of the join
+#' by = headers of columns to use to join the left and right data frames
+#' join_type = type of join ('left', right', 'inner', etc.) user is checking
+#'
+#'A concern in a join, particularly the left join, is that the right-hand frame has duplicate rows
+# This function checks for this by making sure the resulting dataframe has the same
+# number of rows as the left input dataframe
 #' @export
 
 count_rows <- function(left, right, by = NULL, join_type) {

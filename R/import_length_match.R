@@ -1,4 +1,18 @@
-## Does the length of the raw data file match the length of the data frame?
+#' Length match
+#'
+#'Params
+#'df = data frame to check
+#'filepath - path to raw file we imported into data frame
+#'skip = how many lines at the beginning of the file to skip
+#'col_names = if row skipped, if this is true, the new first row is column names, if false, the new first row denotes data values
+#'verbose = if true, output is more comprehensive
+#'
+#'Function checks that the length of the imported data frame matches the length of
+#'the file it was imported from
+
+#' @export
+#'
+#' ## Does the length of the raw data file match the length of the data frame?
 
 ## The easiest way to check this: count newlines
 
@@ -34,7 +48,7 @@
 ## If we try to simplify the semantics to automate like
 ## `length_match("data_file")`, how do we know that the user properly did it?
 ## Example -- maybe the user mistakenly skipped the first 2 rows; length_match
-## on just the filename will not notice an issue
+## on just the filepath will not notice an issue
 ## Or do we create some kind of orchestration paradigm for ETL?
 ## Like, for each file, putting more effort into ETL than we currently do? How
 ## do we do this tradeoff (between speed/simplicity and rigor)
@@ -51,13 +65,13 @@ library(readr)
 library(stringr)
 
 #' @export
-length_match <- function(df, filename, skip = 0, col_names = TRUE, verbose = TRUE) {
+length_match <- function(df, filepath, skip = 0, col_names = TRUE, verbose = TRUE) {
   ## skip tells the function to skip that many rows before parsing data
   ## Note that col_names = TRUE is the general pattern in tidyverse imports
   ## col_names = TRUE means that, after skipping (if any), the first row is the
   ## header.
   ## col_names = FALSE means that, after skipping, the first row is data
-  file_data <- read_file(filename)
+  file_data <- read_file(filepath)
   newlines <- str_count(file_data, "\n") + 1
   # TODO: properly handle quote blocks
 
@@ -86,7 +100,7 @@ length_match <- function(df, filename, skip = 0, col_names = TRUE, verbose = TRU
   if(data_rows != nrow(df)) {
     error_string <-
       paste0(
-        "length_match: ", filename, ":\n",
+        "length_match: ", filepath, ":\n",
         "    Raw data file length does not match data frame length")
     error_string_verbose <-
       paste0(
@@ -99,7 +113,7 @@ length_match <- function(df, filename, skip = 0, col_names = TRUE, verbose = TRU
       warning(error_string)
     }
   } else {
-    message("length_match: ", filename, ": pass")
+    message("length_match: ", filepath, ": pass")
   }
   return(df) # Maybe to support piping
 }
@@ -108,46 +122,46 @@ test_length_match <- function() {
   # Individual tests here
 
   # label each by what they are testing for
-  filename <- "testdata/length_match/length_match_basic.csv"
-  df <- read_csv(filename, col_types = cols(.default = 'c'))
-  length_match(df, filename)
+  filepath <- "testdata/length_match/length_match_basic.csv"
+  df <- read_csv(filepath, col_types = cols(.default = 'c'))
+  length_match(df, filepath)
 
-  filename <- "testdata/length_match/length_match_extra_newlines.csv"
-  df <- read_csv(filename, col_types = cols(.default = 'c'))
-  length_match(df, filename)
+  filepath <- "testdata/length_match/length_match_extra_newlines.csv"
+  df <- read_csv(filepath, col_types = cols(.default = 'c'))
+  length_match(df, filepath)
 
-  filename <- "testdata/length_match/length_match_fwf.txt"
-  df <- read_fwf(filename, fwf_empty(filename), skip = 1, col_types = cols(.default = 'c'))
-  length_match(df, filename)
+  filepath <- "testdata/length_match/length_match_fwf.txt"
+  df <- read_fwf(filepath, fwf_empty(filepath), skip = 1, col_types = cols(.default = 'c'))
+  length_match(df, filepath)
 
-  filename <- "testdata/length_match/length_match_fwf_noheaders.txt"
-  df <- read_fwf(filename, fwf_empty(filename), col_types = cols(.default = 'c'))
-  length_match(df, filename, col_names = FALSE)
+  filepath <- "testdata/length_match/length_match_fwf_noheaders.txt"
+  df <- read_fwf(filepath, fwf_empty(filepath), col_types = cols(.default = 'c'))
+  length_match(df, filepath, col_names = FALSE)
 
-  filename <- "testdata/length_match/length_match_long_header.csv"
-  df <- read_csv(filename, skip = 2, col_types = cols(.default = 'c'))
-  length_match(df, filename, skip = 2)
+  filepath <- "testdata/length_match/length_match_long_header.csv"
+  df <- read_csv(filepath, skip = 2, col_types = cols(.default = 'c'))
+  length_match(df, filepath, skip = 2)
 
-  filename <- "testdata/length_match/length_match_malformed.csv"
-  df <- suppressWarnings(read_csv(filename, col_types = cols(.default = 'c')))
-  length_match(df, filename)
+  filepath <- "testdata/length_match/length_match_malformed.csv"
+  df <- suppressWarnings(read_csv(filepath, col_types = cols(.default = 'c')))
+  length_match(df, filepath)
 
-  filename <- "testdata/length_match/length_match_noheader.csv"
-  df <- read_csv(filename, col_names = FALSE, col_types = cols(.default = 'c'))
-  length_match(df, filename, col_names = FALSE)
+  filepath <- "testdata/length_match/length_match_noheader.csv"
+  df <- read_csv(filepath, col_names = FALSE, col_types = cols(.default = 'c'))
+  length_match(df, filepath, col_names = FALSE)
 
-  filename <- "testdata/length_match/length_match_quotes.csv"
-  df <- read_csv(filename, col_types = cols(.default = 'c'))
-  length_match(df, filename)
+  filepath <- "testdata/length_match/length_match_quotes.csv"
+  df <- read_csv(filepath, col_types = cols(.default = 'c'))
+  length_match(df, filepath)
 
-  filename <- "testdata/length_match/length_match_quotes2.csv"
-  df <- read_csv(filename, col_types = cols(.default = 'c'))
-  length_match(df, filename)
+  filepath <- "testdata/length_match/length_match_quotes2.csv"
+  df <- read_csv(v, col_types = cols(.default = 'c'))
+  length_match(df, filepath)
 
   ## read_csv can't do this one correctly!
-  filename <- "testdata/length_match/length_match_combined.csv"
-  df <- suppressWarnings(read_csv(filename, skip = 3, col_types = cols(.default = 'c')))
-  length_match(df, filename, verbose=F)
+  filepath <- "testdata/length_match/length_match_combined.csv"
+  df <- suppressWarnings(read_csv(filepath, skip = 3, col_types = cols(.default = 'c')))
+  length_match(df, filepath, verbose=F)
 
   invisible() # suppress the return type (is there a better way to do this)
 }

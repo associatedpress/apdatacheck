@@ -10,14 +10,15 @@ library(tidyverse)
 
 # TODO: Fix this regex to correctly catch all keyboard-typable letters
 # I think it's the escaping that needs to be done properly
-#' Checking encoding
+#' Encoding check
 #'
-#' What kind of problem are we solving?
-#' User claims a column represents dates
-#' We want to try to catch and see if it might have been parsed wrong
-#' Any invalid dates
-#' This function takes in a column that has already been assigned a Date type and
-#' checks to see if the entries in that column make sense
+#'Parameters:
+#'df - an R dataframe to check
+#'bad_seq_req=A regex of values that denote characters that should not appear
+#'with correct encoding
+#' This function takes in a dataframe and returns rows with characters that
+#' denote bad encoding, either using a default AP tested, or allowing user to
+#' provide characters to catch
 #' @export
 
 encoding_check <- function(df, bad_seq_regex = "[^[`1234567890-=qwertyuiop[]\\asdfghjkl;'zxcvbnm,\\./ ~!@#$%^&*()_+QWERTYUIOP\\{\\}|ASDFGHJKL:\"ZXCVBNM<>?`]]") {

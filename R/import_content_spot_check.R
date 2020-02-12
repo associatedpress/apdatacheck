@@ -10,14 +10,17 @@
 ## Column mismatch
 
 library(readr)
-#' Spot checking overall content
+#' Spot checking content
 #'
-#' What kind of problem are we solving?
-#' User claims a column represents dates
-#' We want to try to catch and see if it might have been parsed wrong
-#' Any invalid dates
-#' This function takes in a column that has already been assigned a Date type and
-#' checks to see if the entries in that column make sense
+#' This is a generic function that performs several quick checks on a dataset
+#' to check for discrepancies versus the originating file
+#' User should provide a data frame to check, and the filename it should match
+#' The function will only look at the first 15 rows. If user wants to check more
+#' pass a rows= parameter to the function
+#' If user wants to skip lines at the beginning, pass a skip= parameter to the function
+#' If user wants a less verbose output, pass a verbose=FALSE parameter to the function
+#'Function will return messages warning against mismatched length between the R dataframe and the original file,
+#'or if rows or columns are mismatched between the raw data file and the R dataframe
 #' @export
 
 content_spot_check <- function(df, filename, delim = ',', rows = 15, skip = 0, verbose = T) {

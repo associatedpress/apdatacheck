@@ -1,11 +1,14 @@
-#' Validating dates
+#' Date checks
 #'
-#' What kind of problem are we solving?
-#' User claims a column represents dates
-#' We want to try to catch and see if it might have been parsed wrong
-#' Any invalid dates
-#' This function takes in a column that has already been assigned a Date type and
-#' checks to see if the entries in that column make sense
+#' Parameters:
+#' df = pass in data frame
+#' col = pass in a column name
+#' check_future = whether to return warnings for dates in the future (default is true)
+#' date_blacklist = a list of dates which we don't interpret as valid
+#' valid_date_range = list of two years, between which dates should be interpreted as valid
+#'
+#' Function looks for dates out of the expected range, possible swapped months and dates,
+#' or if dates are in the future
 #' @export
 
 # Todo:
