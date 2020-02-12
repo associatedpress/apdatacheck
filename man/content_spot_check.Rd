@@ -2,15 +2,25 @@
 % Please edit documentation in R/import_content_spot_check.R
 \name{content_spot_check}
 \alias{content_spot_check}
-\title{Spot checking overall content}
+\title{Spot checking content}
 \usage{
-content_spot_check(df, filename, delim = ",", rows = 15, skip = 0, verbose = T)
+content_spot_check(df, filepath, delim = ",", rows = 15, skip = 0, verbose = T)
+}
+\arguments{
+\item{df}{dataframe user wants to test}
+
+\item{filepath}{path to file of raw data user wants to compare}
+
+\item{delim}{character used to break up cells in data file}
+
+\item{rows}{number of rows to use to test file, default is 15}
+
+\item{skip}{number of rows to skip at top of the file if needed}
+
+\item{verbose}{if true, returns more comprehensive output}
 }
 \description{
-What kind of problem are we solving?
-User claims a column represents dates
-We want to try to catch and see if it might have been parsed wrong
-Any invalid dates
-This function takes in a column that has already been assigned a Date type and
-checks to see if the entries in that column make sense
+This is a generic function that performs several quick checks on a dataset
+to check for discrepancies versus the originating file. Function will return messages warning against mismatched length between the R dataframe and the original file,
+or if rows or columns are mismatched between the raw data file and the R dataframe
 }

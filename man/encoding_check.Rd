@@ -2,7 +2,7 @@
 % Please edit documentation in R/import_encoding_check.R
 \name{encoding_check}
 \alias{encoding_check}
-\title{Checking encoding}
+\title{Encoding check}
 \usage{
 encoding_check(
   df,
@@ -10,11 +10,14 @@ encoding_check(
     bad_seq_regex = "[^[`1234567890-=qwertyuiop[]\\\\asdfghjkl;'zxcvbnm,\\\\./ ~!@#$\%^&*()_+QWERTYUIOP\\\\{\\\\}|ASDFGHJKL:\\"ZXCVBNM<>?`]]"
 )
 }
+\arguments{
+\item{df}{an R dataframe to check}
+
+\item{bad_seq_req}{A regex of values that denote characters that should not appear
+with correct encoding}
+}
 \description{
-What kind of problem are we solving?
-User claims a column represents dates
-We want to try to catch and see if it might have been parsed wrong
-Any invalid dates
-This function takes in a column that has already been assigned a Date type and
-checks to see if the entries in that column make sense
+This function takes in a dataframe and returns rows with characters that
+denote bad encoding, either using a default list, or allowing user to
+provide characters to catch.
 }

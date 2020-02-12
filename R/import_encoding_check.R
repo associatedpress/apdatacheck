@@ -12,13 +12,13 @@ library(tidyverse)
 # I think it's the escaping that needs to be done properly
 #' Encoding check
 #'
-#'Parameters:
-#'df - an R dataframe to check
-#'bad_seq_req=A regex of values that denote characters that should not appear
-#'with correct encoding
 #' This function takes in a dataframe and returns rows with characters that
-#' denote bad encoding, either using a default AP tested, or allowing user to
-#' provide characters to catch
+#' denote bad encoding, either using a default list, or allowing user to
+#' provide characters to catch.
+#'
+#'@param df an R dataframe to check
+#'@param bad_seq_req A regex of values that denote characters that should not appear
+#'with correct encoding
 #' @export
 
 encoding_check <- function(df, bad_seq_regex = "[^[`1234567890-=qwertyuiop[]\\asdfghjkl;'zxcvbnm,\\./ ~!@#$%^&*()_+QWERTYUIOP\\{\\}|ASDFGHJKL:\"ZXCVBNM<>?`]]") {

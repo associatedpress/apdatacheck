@@ -2,21 +2,28 @@
 % Please edit documentation in R/import_multifile_load.R
 \name{multifile_load}
 \alias{multifile_load}
-\title{Checking multifile load}
+\title{Multifile load}
 \usage{
 multifile_load(
   df,
-  list_of_filenames,
+  list_of_filepaths,
   skip = 0,
   col_names = TRUE,
   verbose = FALSE
 )
 }
+\arguments{
+\item{df}{dataframe}
+
+\item{list_of_filepaths}{a list of paths to files user is trying to merge}
+
+\item{skip}{number of rows to skip}
+
+\item{col_names}{if row skipped, if this is true, the new first row is column names, if false, the new first row denotes data values in the dataframe}
+
+\item{verbose}{if true, more comprehensive output is given}
+}
 \description{
-What kind of problem are we solving?
-User claims a column represents dates
-We want to try to catch and see if it might have been parsed wrong
-Any invalid dates
-This function takes in a column that has already been assigned a Date type and
-checks to see if the entries in that column make sense
+This function spotchecks rows in the dataframe to see that the multiple files
+user is attempting to merge have all been loaded into the dataframe.
 }

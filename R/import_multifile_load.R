@@ -18,17 +18,15 @@ library(tidyverse)
 
 #' Multifile load
 #'
-#'Parameters:
-#'df = dataframe
-#'list_of_filepaths = a list of paths to files user is trying to merge
-#'skip = number of rows to skip
-#'col_names = if row skipped, if this is true, the new first row is column names, if false, the new first row denotes data values
-#'in the dataframe
-#'verbose = if true, more comprehensive output is given
+#'This function spotchecks rows in the dataframe to see that the multiple files
+#' user is attempting to merge have all been loaded into the dataframe.
 #'
-
-#' This function spotchecks rows in the dataframe to see that the multiple files
-#' user is attempting to merge have all been loaded into the dataframe
+#' @param df dataframe
+#' @param list_of_filepaths a list of paths to files user is trying to merge
+#' @param skip number of rows to skip
+#' @param col_names if row skipped, if this is true, the new first row is column names, if false, the new first row denotes data values in the dataframe
+#' @param verbose if true, more comprehensive output is given
+#'
 #' @export
 
 multifile_load <- function(df, list_of_filepaths, skip = 0, col_names = TRUE, verbose=FALSE) {

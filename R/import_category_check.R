@@ -23,11 +23,14 @@
 # mutate statement
 #' Category check
 #'
-#' User provides a column name
-#' This function works to catch any values in the column should be combined
-#' with other categories
-#' Works by catching mismatched spaces, capitalization, or punctuation
-#' Returns list of categories that the checker suspects might overlap
+#' This function works to catch any values in the column that should be combined
+#' with other categories. It works by catching mismatched spaces, capitalization, or punctuation
+#' Returns list of categories that the checker suspects might overlap.
+#'
+#' @param dataframe User provides reference to an R dataframe to check
+#' @param col_name Reference to a column to be checked for discrete categories
+#'
+
 #' @export
 
 category_check <- function(df, col_name) {

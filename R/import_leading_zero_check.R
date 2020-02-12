@@ -3,15 +3,14 @@
 
 #' Leading zero check
 #'
-#'Params
-#'df = data frame to check
-#'filepath - path to raw file we imported into data frame
-#'
 #'Function accesses columns with numeric input and checks for rows where
 #'the numbers in columns don't match between the raw file and the dataframe,
 #'this denotes where leading zeroes are not carried over from the raw file
 #'to the dataframe.
-
+#'
+#' @param df data frame to check
+#' @param filepath path to raw file we imported into data frame
+#'
 #' @export
 
 leading_zero_check <- function(df, filepath) {

@@ -4,15 +4,13 @@
 # Is this redundant with check_keys?
 #' Counting join rows
 #'
-#' Parameters:
-#' left = dataframe that we want to merge on the left side of the join
-#' right = dataframe that we want to merge on the right side of the join
-#' by = headers of columns to use to join the left and right data frames
-#' join_type = type of join ('left', right', 'inner', etc.) user is checking
+#' A concern in a join, particularly the left join, is that the right-hand frame has duplicate rows. This function checks for this by making sure the resulting dataframe has the same number of rows as the left input dataframe.
 #'
-#'A concern in a join, particularly the left join, is that the right-hand frame has duplicate rows
-# This function checks for this by making sure the resulting dataframe has the same
-# number of rows as the left input dataframe
+#' @param left dataframe that we want to merge on the left side of the join
+#' @param right dataframe that we want to merge on the right side of the join
+#' @param by headers of columns to use to join the left and right data frames
+#' @param join_type type of join ('left', right', 'inner', etc.) user is checking
+#'
 #' @export
 
 count_rows <- function(left, right, by = NULL, join_type) {

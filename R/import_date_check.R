@@ -1,14 +1,13 @@
 #' Date checks
 #'
-#' Parameters:
-#' df = pass in data frame
-#' col = pass in a column name
-#' check_future = whether to return warnings for dates in the future (default is true)
-#' date_blacklist = a list of dates which we don't interpret as valid
-#' valid_date_range = list of two years, between which dates should be interpreted as valid
-#'
 #' Function looks for dates out of the expected range, possible swapped months and dates,
 #' or if dates are in the future
+#'
+#' @param df pass in data frame
+#' @param col pass in a column name
+#' @param check_future whether to return warnings for dates in the future (default is true)
+#' @param date_blacklist a list of dates which we don't interpret as valid
+#' @param valid_date_range list of two years, between which dates should be interpreted as valid
 #' @export
 
 # Todo:

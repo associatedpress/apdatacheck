@@ -2,15 +2,17 @@
 % Please edit documentation in R/import_check_nas.R
 \name{check_column}
 \alias{check_column}
-\title{Checking for missing data}
+\title{Checking for nas or missing data}
 \usage{
 check_column(working_col, test_function)
 }
+\arguments{
+\item{working_col}{column to check for missing data}
+
+\item{test_function}{function which returns true to identify a cell of data as "missing"}
+}
 \description{
-What kind of problem are we solving?
-User claims a column represents dates
-We want to try to catch and see if it might have been parsed wrong
-Any invalid dates
-This function takes in a column that has already been assigned a Date type and
-checks to see if the entries in that column make sense
+The function summarizes how many values are either missing or blank and reports
+that to user. Optionally, user can provide a test function which can check for additional missing values
+this test_function should return true for a value if it should be flagged as missing or empty
 }

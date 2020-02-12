@@ -2,15 +2,19 @@
 % Please edit documentation in R/join_count_rows.R
 \name{count_rows}
 \alias{count_rows}
-\title{Checking rows in join}
+\title{Counting join rows}
 \usage{
 count_rows(left, right, by = NULL, join_type)
 }
+\arguments{
+\item{left}{dataframe that we want to merge on the left side of the join}
+
+\item{right}{dataframe that we want to merge on the right side of the join}
+
+\item{by}{headers of columns to use to join the left and right data frames}
+
+\item{join_type}{type of join ('left', right', 'inner', etc.) user is checking}
+}
 \description{
-What kind of problem are we solving?
-User claims a column represents dates
-We want to try to catch and see if it might have been parsed wrong
-Any invalid dates
-This function takes in a column that has already been assigned a Date type and
-checks to see if the entries in that column make sense
+A concern in a join, particularly the left join, is that the right-hand frame has duplicate rows. This function checks for this by making sure the resulting dataframe has the same number of rows as the left input dataframe.
 }

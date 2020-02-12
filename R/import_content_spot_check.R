@@ -13,27 +13,27 @@ library(readr)
 #' Spot checking content
 #'
 #' This is a generic function that performs several quick checks on a dataset
-#' to check for discrepancies versus the originating file
-#' User should provide a data frame to check, and the filename it should match
-#' The function will only look at the first 15 rows. If user wants to check more
-#' pass a rows= parameter to the function
-#' If user wants to skip lines at the beginning, pass a skip= parameter to the function
-#' If user wants a less verbose output, pass a verbose=FALSE parameter to the function
-#'Function will return messages warning against mismatched length between the R dataframe and the original file,
+#' to check for discrepancies versus the originating file. Function will return messages warning against mismatched length between the R dataframe and the original file,
 #'or if rows or columns are mismatched between the raw data file and the R dataframe
+#' @param df dataframe user wants to test
+#' @param filepath path to file of raw data user wants to compare
+#' @param delim character used to break up cells in data file
+#' @param rows number of rows to use to test file, default is 15
+#' @param skip number of rows to skip at top of the file if needed
+#' @param verbose if true, returns more comprehensive output
 #' @export
 
-content_spot_check <- function(df, filename, delim = ',', rows = 15, skip = 0, verbose = T) {
-  #  filename <- "testdata/content_spot_check/content_spot_check_long_header.csv"
+content_spot_check <- function(df, filepath, delim = ',', rows = 15, skip = 0, verbose = T) {
+  #  filepath <- "testdata/content_spot_check/content_spot_check_long_header.csv"
   #  df <- iris
   #  skip = 2
   #  df <- data.frame()
   # Manual parsing
-  data <- strsplit(read_file(filename), '\r\n')[[1]]
+  data <- strsplit(read_file(filepath), '\r\n')[[1]]
   if (length(data) == 0) {
     error_string <-
       paste0(
-        "content_spot_check: ", filename, ":\n",
+        "content_spot_check: ", filepath, ":\n",
         "    Empty file")
 
     warning(error_string)
@@ -42,7 +42,7 @@ content_spot_check <- function(df, filename, delim = ',', rows = 15, skip = 0, v
   if (length(data) <= skip + 1) {
     error_string <-
       paste0(
-        "content_spot_check: ", filename, ":\n",
+        "content_spot_check: ", filepath, ":\n",
         "    Only header found")
     warning(error_string)
     return(df)
@@ -52,7 +52,7 @@ content_spot_check <- function(df, filename, delim = ',', rows = 15, skip = 0, v
   if (row_limit & verbose) {
     error_string <-
       paste0(
-        "content_spot_check: ", filename, ":\n",
+        "content_spot_check: ", filepath, ":\n",
         "    Fewer rows found to spot check than expected")
     warning(error_string)
   }
@@ -66,7 +66,7 @@ content_spot_check <- function(df, filename, delim = ',', rows = 15, skip = 0, v
     # Warning here, ignore the rest of the file
     error_string <-
       paste0(
-        "content_spot_check: ", filename, ":\n",
+        "content_spot_check: ", filepath, ":\n",
         "    Column mismatch")
     warning(error_string)
   } else {
@@ -78,13 +78,13 @@ content_spot_check <- function(df, filename, delim = ',', rows = 15, skip = 0, v
     if (testFlag) {
       error_string <-
         paste0(
-          "content_spot_check: ", filename, ": pass")
+          "content_spot_check: ", filepath, ": pass")
       warning(error_string)
     } else {
       # failed
       error_string <-
         paste0(
-          "content_spot_check: ", filename, ":\n",
+          "content_spot_check: ", filepath, ":\n",
           "    Row mismatch")
       warning(error_string)
     }
@@ -95,30 +95,30 @@ test_content_spot_check <- function() {
   # Individual tests here
 
   # label each by what they are testing for
-  filename <- "testdata/content_spot_check/content_spot_check_empty_file.csv"
+  filepath <- "testdata/content_spot_check/content_spot_check_empty_file.csv"
   df <- data.frame()
-  content_spot_check(df, filename)
+  content_spot_check(df, filepath)
 
-  filename <- "testdata/content_spot_check/content_spot_check_just_header.csv"
-  df <- read_csv(filename, col_types = cols(.default = 'c'))
-  content_spot_check(df, filename)
+  filepath <- "testdata/content_spot_check/content_spot_check_just_header.csv"
+  df <- read_csv(filepath, col_types = cols(.default = 'c'))
+  content_spot_check(df, filepath)
 
-  filename <- "testdata/content_spot_check/content_spot_check_short_file.csv"
-  df <- read_csv(filename, col_types = cols(.default = 'c'))
-  content_spot_check(df, filename)
+  filepath <- "testdata/content_spot_check/content_spot_check_short_file.csv"
+  df <- read_csv(filepath, col_types = cols(.default = 'c'))
+  content_spot_check(df, filepath)
 
-  filename <- "testdata/content_spot_check/content_spot_check_normal_file.csv"
+  filepath <- "testdata/content_spot_check/content_spot_check_normal_file.csv"
   df <- iris
-  content_spot_check(df, filename)
+  content_spot_check(df, filepath)
 
   # Now we intentionally mangle our df:
   # Drop a row
   df <- iris[c(1:10, 12:150),]
-  content_spot_check(df, filename)
+  content_spot_check(df, filepath)
 
   # Drop a column
   df <- iris[, 1:3]
-  content_spot_check(df, filename)
+  content_spot_check(df, filepath)
 
   invisible() # suppress the return type (is there a better way to do this)
 }

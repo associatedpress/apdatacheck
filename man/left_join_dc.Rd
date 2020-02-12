@@ -2,13 +2,13 @@
 % Please edit documentation in R/run_all_checks.R
 \name{left_join_dc}
 \alias{left_join_dc}
-\title{Join check}
+\title{Left join}
 \usage{
 left_join_dc(left, right, by = NULL, verbose = F)
 }
 \description{
-What kind of problem are we solving?
-User claims a column represents dates
+Checks that when a left join is performed
+between two data sets
 We want to try to catch and see if it might have been parsed wrong
 Any invalid dates
 This function takes in a column that has already been assigned a Date type and

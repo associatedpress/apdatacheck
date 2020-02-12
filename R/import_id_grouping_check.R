@@ -3,13 +3,13 @@ library(readr)
 
 #' Id grouping check
 #'
-#'Params
-#'df = data frame to test
-#'filepath = path to file that was imported, for comparison
-#'id_column = name of the column with ids we expect to be unique
-#'verbose = how extensive output of grouping function should be
+#'Function returns warning and examples of problematic ids if ids to group by are duplicated.
 #'
-#'Function returns warning if ids to group by are duplicated
+#'@param df data frame to test
+#' @param filepath path to file that was imported, for comparison
+#'@param id_column name of the column with ids we expect to be unique
+#'@param verbose how extensive output of grouping function should be
+#'
 #' @export
 
 id_grouping <- function(df, filepath, id_column, verbose=FALSE) {

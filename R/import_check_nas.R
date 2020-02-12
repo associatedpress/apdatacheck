@@ -9,12 +9,12 @@
 # Helper function to make the checks themselves look cleaner
 #' Checking for nas or missing data
 #'
-#' User provides a column to check for missing values
 #' The function summarizes how many values are either missing or blank and reports
-#' that to user
-#' Optionally, user can provide a test function which can check for additional missing values
+#' that to user. Optionally, user can provide a test function which can check for additional missing values
 #' this test_function should return true for a value if it should be flagged as missing or empty
-
+#'
+#'@param working_col column to check for missing data
+#'@param test_function function which returns true to identify a cell of data as "missing"
 #' @export
 
 check_column <- function(working_col, test_function) {

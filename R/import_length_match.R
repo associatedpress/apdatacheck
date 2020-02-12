@@ -1,18 +1,8 @@
-#' Length match
-#'
-#'Params
-#'df = data frame to check
-#'filepath - path to raw file we imported into data frame
-#'skip = how many lines at the beginning of the file to skip
-#'col_names = if row skipped, if this is true, the new first row is column names, if false, the new first row denotes data values
-#'verbose = if true, output is more comprehensive
-#'
-#'Function checks that the length of the imported data frame matches the length of
-#'the file it was imported from
 
-#' @export
-#'
-#' ## Does the length of the raw data file match the length of the data frame?
+library(readr)
+library(stringr)
+
+## Does the length of the raw data file match the length of the data frame?
 
 ## The easiest way to check this: count newlines
 
@@ -61,10 +51,23 @@
 ## Readr appears to discard all NA rows
 
 
-library(readr)
-library(stringr)
-
+#' Length match
+#'
+#' Function checks that the length of the imported data frame matches the length of
+#' the file it was imported from.
+#'
+#' @param df data frame to check
+#' @param filepath path to raw file we imported into data frame
+#' @param skip how many lines at the beginning of the file to skip
+#' @param col_names if row skipped, if this is true, the new first row is column names, if false, the new first row denotes data values
+#' @param verbose if true, output is more comprehensive
+#'
 #' @export
+#'
+
+
+
+
 length_match <- function(df, filepath, skip = 0, col_names = TRUE, verbose = TRUE) {
   ## skip tells the function to skip that many rows before parsing data
   ## Note that col_names = TRUE is the general pattern in tidyverse imports

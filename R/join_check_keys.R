@@ -3,15 +3,15 @@ library(tidyverse)
 # Like other join checks, we don't return any type here, just messages
 #' Checking join keys
 #'
-#' Parameters:
-#' left = dataframe that we want to merge on the left side of the join
-#' right = dataframe that we want to merge on the right side of the join
-#' by = headers of columns to use to join the left and right data frames
-#' verbose = if true, returns more comprehensive output
-#' join_type = type of join ('left', right', 'inner', etc.) user is checking
-#'
 #' This function checks to see if keys being used to join are unique, as needed
-#' for a join,and returns potential problem keys to the user
+#' for a join,and returns potential problem keys to the user.
+#'
+#' @param left dataframe that we want to merge on the left side of the join
+#' @param right dataframe that we want to merge on the right side of the join
+#' @param by headers of columns to use to join the left and right data frames
+#' @param verbose if true, returns more comprehensive output
+#' @param join_type type of join ('left', right', 'inner', etc.) user is checking
+#'
 #' @export
 
 check_keys <- function(left, right, by = by, verbose = F, join_type = "left") {

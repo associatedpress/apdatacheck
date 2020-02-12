@@ -2,7 +2,7 @@
 % Please edit documentation in R/import_date_check.R
 \name{date_check}
 \alias{date_check}
-\title{Validating dates}
+\title{Date checks}
 \usage{
 date_check(
   df,
@@ -13,11 +13,18 @@ date_check(
   valid_date_range = c(1970, 2050)
 )
 }
+\arguments{
+\item{df}{pass in data frame}
+
+\item{col}{pass in a column name}
+
+\item{check_future}{whether to return warnings for dates in the future (default is true)}
+
+\item{date_blacklist}{a list of dates which we don't interpret as valid}
+
+\item{valid_date_range}{list of two years, between which dates should be interpreted as valid}
+}
 \description{
-What kind of problem are we solving?
-User claims a column represents dates
-We want to try to catch and see if it might have been parsed wrong
-Any invalid dates
-This function takes in a column that has already been assigned a Date type and
-checks to see if the entries in that column make sense
+Function looks for dates out of the expected range, possible swapped months and dates,
+or if dates are in the future
 }

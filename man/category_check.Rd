@@ -2,15 +2,17 @@
 % Please edit documentation in R/import_category_check.R
 \name{category_check}
 \alias{category_check}
-\title{Validating categories}
+\title{Category check}
 \usage{
 category_check(df, col_name)
 }
+\arguments{
+\item{col_name}{Reference to a column to be checked for discrete categories}
+
+\item{dataframe}{User provides reference to an R dataframe to check}
+}
 \description{
-What kind of problem are we solving?
-User claims a column represents dates
-We want to try to catch and see if it might have been parsed wrong
-Any invalid dates
-This function takes in a column that has already been assigned a Date type and
-checks to see if the entries in that column make sense
+This function works to catch any values in the column that should be combined
+with other categories. It works by catching mismatched spaces, capitalization, or punctuation
+Returns list of categories that the checker suspects might overlap.
 }

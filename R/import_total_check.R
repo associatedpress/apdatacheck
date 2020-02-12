@@ -12,17 +12,6 @@
 # Should we assume this function is run only after we've 'cleaned' the data
 # with regards to what columns are what type and what the raw data represents?
 
-#' Total check
-#'
-#' Parameters:
-#' df = dataframe we are checking
-#' keywords = words denoting rows with totals or sums we are trying to check for
-#' threshold = maximum of how many times finding the above keywords in the dataset
-#' is expected
-#'
-#' This function returns rows and columns that might be total rows, and
-#' possibly should be separated from the dataset
-#' @export
 
 check_column_for_outlier <- function(column, threshold) {
   suspect_rows <- column %>%
@@ -33,7 +22,17 @@ check_column_for_outlier <- function(column, threshold) {
   return(nrow(suspect_rows) > 0)
 }
 
+#' Total check
+#'
+#' This function returns rows and columns that might be total rows, and
+#' possibly should be separated from the dataset.
+#'
+#' @param df dataframe we are checking
+#' @param keywords words denoting rows with totals or sums we are trying to check for
+#' @param threshold maximum of how many times finding the above keywords in the dataset is expected
+#'
 #' @export
+
 total_check <- function(df, keywords = c("subtotal", "total", "sum"), threshold = 4) {
   # 1. Finding the presence of key words in rows in the data frame
 
